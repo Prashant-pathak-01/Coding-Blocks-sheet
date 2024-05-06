@@ -1,0 +1,53 @@
+import java.util.*;
+
+class Main {
+	static class Node {
+		int data;
+		Node next;
+		Node(int d){
+			data =d;
+			next = null;
+		}
+	}
+	public static Node reverse(Node head){
+		Node prev = null;
+		Node next = null;
+		while(head!=null){
+			next = head.next;
+			head.next=  prev;
+			prev=  head;
+			head = next;
+		}
+		return prev;
+	}
+	public static void main(String[] args) throws Exception {
+
+			Scanner scn = new Scanner(System.in);
+			int N = scn.nextInt();
+			Node list = new Node(0);
+			Node head = list;
+			for (int i = 0; i < N; i++) {
+				list.next = new Node(scn.nextInt());
+				list = list.next;
+			}
+			head = reverse(head.next);
+			Node temp= new Node(0);
+			Node res= temp;
+			int prev = 0;
+			while(head!=null){
+				if(head.data>=prev){
+					temp.next = new Node(head.data);
+					temp= temp.next;
+					prev=  head.data;
+				}
+				head=  head.next;
+			}
+			res = reverse(res.next);
+			while(res!=null){
+				System.out.print(res.data+" ");
+				res= res.next;
+			}
+
+
+		}
+}

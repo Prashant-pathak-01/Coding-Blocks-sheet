@@ -1,0 +1,76 @@
+import java.util.*;
+class Node{
+	int data;
+	Node next;
+	Node(int d){
+		data = d;
+		next = null;
+	}
+}
+public class Main {
+	public static Node reverse(Node head){
+		Node prev = null;
+		Node next = null;
+		while(head!=null){
+			next=  head.next;
+			head.next=  prev;
+			prev =head;
+			head = next;
+		}
+		return prev;
+	}
+    public static void main (String args[]) {
+		Scanner sc =new Scanner(System.in);
+		int n = sc.nextInt();
+		int m  = sc.nextInt();
+		Node h1 = new Node(0);
+		Node h2= new Node(0);
+		Node head1 = h1;
+		Node head2 = h2;
+		for(int i=0; i<n; i++){
+			h1.next = new Node(sc.nextInt());
+			h1 = h1.next;
+		}
+		for(int i=0; i<m; i++){
+			h2.next = new Node(sc.nextInt());
+			h2=  h2.next;
+		}
+		head1= reverse(head1.next);
+		head2 = reverse(head2.next);
+
+		int c = 0;
+		Node temp = new Node(0);
+		Node res = temp;
+		while(head1!=null && head2!=null){
+			int sum = c+head1.data+head2.data;
+			c=sum/10;
+			sum%=10;
+			temp.next = new Node(sum);
+			temp = temp.next;
+			head1 = head1.next;
+			head2 = head2.next;
+		}
+		while(head1!=null){
+			int sum = c+head1.data;
+			c= sum/10;
+			sum%=10;
+			temp.next = new Node(sum);
+			temp = temp.next;
+			head1 = head1.next;
+		}
+		while(head2!=null){
+			int sum = c+head2.data;
+			c = sum/10;
+			sum%=10;
+			temp =  new Node(sum);
+			temp = temp.next;
+			head2 = head2.next;
+		}
+		if(c!=0) temp.next = new Node(c);
+		res = reverse(res.next);
+		while(res!=null){
+			System.out.print(res.data+" ");
+			res = res.next;
+		}
+    }
+}

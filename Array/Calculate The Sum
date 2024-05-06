@@ -1,0 +1,24 @@
+import java.util.*;
+public class Main {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int arr[] = new int[n];
+
+        long res  = 0;
+        for(int i=0; i<n; i++){
+            arr[i] = sc.nextInt();
+            res+=arr[i];
+        }
+        int k = sc.nextInt();
+        int opr[] = new int[k];
+        for(int i=0; i<k; i++){
+            opr[i]  = sc.nextInt();
+        }
+        int Mod = (int)1e9+7;
+        for(int i=0; i<k; i++){
+            res = (res*2)%Mod;
+        }
+        System.out.println(res%Mod);
+    }
+}

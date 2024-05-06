@@ -1,0 +1,25 @@
+import java.util.*;
+public class Main {
+    public static void main(String args[]){
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();
+		Stack<Integer> stack = new Stack<>();
+		int prev = 1;
+		for(int i=0; i<n; i++){
+			int temp = sc.nextInt();
+			if(temp==2 && prev!=2){
+				i--;
+				prev = 2;
+				continue;
+			}
+			prev=1;
+			if(temp==1){
+				if(!stack.isEmpty()) System.out.println(stack.pop());
+				else System.out.println("No Code");
+				continue;
+			}
+			stack.push(temp);
+		}
+	}
+}
+

@@ -1,0 +1,57 @@
+import java.util.*;
+class Node{
+	int data;
+	Node next;
+	Node(int d){
+		data = d;
+		next = null;
+	}
+}
+public class Main {
+	static Scanner sc;
+	public static Node createLL(int n){
+		Node n1 = new Node(0);
+		Node head = n1;
+		for(int i=0; i<n; i++){
+			n1.next = new Node(sc.nextInt());
+			n1 = n1.next;
+		}
+		return head.next;
+
+	}
+	public static int[] createQueries(int n){
+		int arr[] = new int[n];
+		for(int i=0; i<n; i++){
+			arr[i] =sc.nextInt();
+		}
+		return arr;
+	}
+	public static Node removeNode(Node head, int n){
+		if(n==0) return head.next;
+		Node dummy = head;
+		for(int i=1; i<n; i++){
+			dummy = dummy.next; 
+		}
+		dummy.next = dummy.next.next;
+		return head;
+	}
+	public static void print(Node head){
+		Node dummy = head;
+		while(dummy!=null){
+			System.out.print(dummy.data+" ");
+			dummy = dummy.next;
+		}
+		System.out.println();
+	}
+    public static void main(String args[]) {
+        sc = new Scanner(System.in);
+		int n = sc.nextInt();
+		int q = sc.nextInt();
+		Node head = createLL(n);
+		int arr[] = createQueries(q);
+		for(int i=0; i<q; i++){
+			head = removeNode(head,arr[i]);
+			print(head);
+		}
+    }
+}

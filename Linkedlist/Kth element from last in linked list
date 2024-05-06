@@ -1,0 +1,39 @@
+import java.util.*;
+class Node{
+	int data;
+	Node next;
+	Node(int d){
+		data = d;
+		next = null;
+	}
+}
+public class Main {
+	public static Node reverse(Node head){
+		Node prev = null;
+		Node next =  null;
+		while(head!=null){
+			next = head.next;
+			head.next = prev;
+			prev = head;
+			head = next;
+		}
+		return prev;
+	}
+    public static void main (String args[]) {
+		Scanner sc = new Scanner(System.in);
+		Node node=  new Node(0);
+		Node head=node;
+		while(true){
+			int temp = sc.nextInt();
+			if(temp==-1) break;
+			node.next = new Node(temp);
+			node=  node.next;
+		}
+		int k = sc.nextInt();
+		head = reverse(head.next);
+		for(int i=1; i<k; i++){
+			head = head.next;
+		}
+		System.out.println(head.data);
+    }
+}

@@ -1,0 +1,50 @@
+import java.util.*;
+class Node{
+	int data;
+	Node next;
+	Node(int d){
+		data = d;
+		next = null;
+	}
+}
+public class Main {
+    public static void main (String args[]) {
+		Scanner sc=  new Scanner(System.in);
+		int a= sc.nextInt();
+		int  b = sc.nextInt();
+		int c=  sc.nextInt();
+		Node n1 = new Node(0);
+		Node n2 = new Node(0);
+		Node n3 = new Node(0);
+		Node h1 = n1;
+		Node h2 = n2;
+		Node h3  = n3;
+		for(int i=0; i<a; i++) {n1.next = new Node(sc.nextInt()); n1 = n1.next;}
+		for(int i=0; i<b; i++) {n2.next = new Node(sc.nextInt()); n2 = n2.next;}
+		for(int i=0; i<c; i++) {n3.next = new Node(sc.nextInt()); n3 = n3.next;}
+		int tar = sc.nextInt();
+		boolean flag = false;
+		h1 = h1.next;
+		h2 = h2.next;
+		h3 = h3.next;
+		while(h1!=null){
+			Node temp1 = h2;
+			while(temp1!=null){
+				Node temp2 = h3;
+				while(temp2!=null){
+					int sum = h1.data+temp1.data+temp2.data;
+					if(sum==tar){
+						System.out.println(h1.data+" "+temp1.data+" "+temp2.data);
+						flag = true;
+						break;
+					}
+					temp2 = temp2.next;
+				}
+				temp1=temp1.next;
+				if(flag) break;
+			}
+			h1 = h1.next;
+			if(flag) break;
+		}
+    }
+}
