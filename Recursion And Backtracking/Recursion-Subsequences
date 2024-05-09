@@ -1,0 +1,20 @@
+import java.util.*;
+public class Main {
+    public static int generateSeq(String res, int i, String str){
+        if(i>=str.length()){
+            System.out.print(res+" ");
+            return 1;
+        }
+        int result = 0; 
+        result+=generateSeq(res,i+1,str);
+        result+=generateSeq(res+str.charAt(i),i+1,str);
+        return result;
+    }
+    public static void main(String args[]) {
+        Scanner sc=  new Scanner(System.in);
+        String str = sc.nextLine();
+        int res = generateSeq("",0,str);
+        System.out.println();
+        System.out.print(res);
+    }
+}

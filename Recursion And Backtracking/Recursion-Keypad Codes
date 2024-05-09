@@ -1,0 +1,22 @@
+import java.util.*;
+public class Main {
+    public static int generateCodes(String arr[], String num, int i, String res){
+        if(res.length()==num.length()){
+            System.out.print(res+" ");
+            return 1;
+        }
+        int result =0 ;
+        for(int x=0; x<arr[num.charAt(i)-'0'].length(); x++){
+            result+=generateCodes(arr,num,i+1,res+arr[num.charAt(i)-'0'].charAt(x));
+        }
+        return result;
+    }
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int num = sc.nextInt();
+        String arr[] = {"","abc","def","ghi","jkl","mno","pqrs","tuv","wx","yz"};
+        int res =generateCodes(arr,String.valueOf(num),0,"");
+        System.out.println();
+        System.out.print(res);
+    }
+}

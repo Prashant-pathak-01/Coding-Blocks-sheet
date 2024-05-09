@@ -1,0 +1,23 @@
+import java.util.*;
+public class Main {
+    public static void generateAllBinary(String str, int i, String res){
+        if(i>=str.length()) {
+            System.out.print(res+" ");
+            return;
+        }
+        if(str.charAt(i)=='?'){
+            generateAllBinary(str,i+1,res+'0');
+            generateAllBinary(str,i+1,res+'1');
+        }
+        else generateAllBinary(str,i+1,res+str.charAt(i));
+    }
+    public static void main(String args[]) {
+        Scanner sc= new Scanner(System.in);
+        int n = sc.nextInt();
+        sc.nextLine();
+        for(int i=0; i<n; i++){
+            String str = sc.nextLine();
+            generateAllBinary(str,0,"");
+        }
+    }
+}

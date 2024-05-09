@@ -1,0 +1,40 @@
+import java.util.*;
+public class Main {
+    public static int groups(int arr[], int i,int tar, int sum1,int sum2,List<Integer> take,List<Integer> nottake){
+        if(sum1==tar && sum2==tar){
+            for(int x=0; x<take.size(); x++){
+                System.out.print(take.get(x)+" ");
+            }
+            System.out.print("and ");
+            for(int x=0; x<nottake.size(); x++){
+                System.out.print(nottake.get(x)+" ");
+            }
+            System.out.println();
+            return 1;
+        }
+        if(i>=arr.length){
+            return 0;
+        }
+        int result =0;
+        take.add(arr[i]);
+        result+=groups(arr,i+1,tar,sum1+arr[i],sum2,take,nottake);
+        take.remove(take.size()-1);
+        nottake.add(arr[i]);
+        result+=groups(arr,i+1,tar,sum1,sum2+arr[i],take,nottake);
+        nottake.remove(nottake.size()-1);
+        return result;
+    }
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int arr[] = new int[n];
+        int sum = 0;
+        for(int i=0; i<n; i++) {
+            arr[i] = sc.nextInt();
+            sum+=arr[i];
+        }
+            int res = groups(arr,0,sum/2,0,0,new ArrayList<>(),new ArrayList<>());
+            System.out.print(res);
+
+    }
+}

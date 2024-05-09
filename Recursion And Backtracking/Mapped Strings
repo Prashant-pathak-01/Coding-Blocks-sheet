@@ -1,0 +1,42 @@
+import java.util.*;
+
+public class Main {
+    static List<String> possibleStrings(String num) {
+        List<String> result = new ArrayList<>();
+        backtrack(num, 0, new StringBuilder(), result);
+        return result;
+    }
+
+    static void backtrack(String num, int index, StringBuilder combination, List<String> result) {
+        if (index == num.length()) {
+            result.add(combination.toString());
+            return;
+        }
+
+        int digit = num.charAt(index) - '0';
+        char ch = (char) ('A' + digit - 1);
+        combination.append(ch);
+        backtrack(num, index + 1, combination, result);
+        combination.deleteCharAt(combination.length() - 1);
+
+        if (index < num.length() - 1) {
+            int twoDigits = Integer.parseInt(num.substring(index, index + 2));
+            if (twoDigits >= 10 && twoDigits <= 26) {
+                ch = (char) ('A' + twoDigits - 1);
+                combination.append(ch);
+                backtrack(num, index + 2, combination, result);
+                combination.deleteCharAt(combination.length() - 1);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String num = scanner.nextLine();
+        List<String> result = possibleStrings(num);
+        Collections.sort(result);
+        for (String s : result) {
+            System.out.println(s);
+        }
+    }
+}

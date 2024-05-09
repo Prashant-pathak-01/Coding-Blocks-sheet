@@ -1,0 +1,19 @@
+import java.util.*;
+public class Main {
+    public static void generateLexi(int n, String res,int num){
+        if(num>n) return;
+        if(num!=0) System.out.print(res+" ");
+        for(int x=0; x<=9; x++){
+            if(x==0 && num==0) {
+                System.out.print("0 ");
+                continue;
+                }
+            generateLexi(n,res+x,num*10+x);
+        }
+    }
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        generateLexi(n,"",0);
+    }
+}

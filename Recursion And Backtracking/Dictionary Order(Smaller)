@@ -1,0 +1,28 @@
+import java.util.*;
+public class Main {
+    static boolean flag ;
+    public static void generateSoln(char arr[], boolean mark[], String res, String str){
+        if(str.length()==res.length()){
+            if(str.equals(res)) flag = false;
+            if(flag) System.out.println(res);
+            return;
+        }
+        if(!flag) return;
+        for(int i=0; i<arr.length; i++){
+            if(!mark[i]){
+                mark[i] = true;
+                generateSoln(arr,mark,res+arr[i],str);
+                mark[i] = false;
+            }
+        }
+    }
+    public static void main(String args[]) {
+        Scanner sc =  new Scanner(System.in);
+        String str = sc.nextLine();
+        char arr[] = str.toCharArray();
+        Arrays.sort(arr);
+        boolean mark[] = new boolean[arr.length];
+        flag =true;
+        generateSoln(arr,mark,"",str);
+    }
+}

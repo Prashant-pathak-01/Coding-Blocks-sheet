@@ -1,0 +1,48 @@
+import java.util.*;
+public class Main {
+    public static boolean generateSolution(int a, int b, int i, int j,char arr[][], int res[][]){
+        if(i==a-1 && j==b-1) {
+            res[i][j] = 1;
+            return true;
+            }
+            boolean result = false;
+        if(i>=a || j>=b || i<0 || j<0 || arr[i][j]=='X') return false;
+        if(res[i][j]==0){
+            res[i][j] = 1;
+            result= result||generateSolution(a,b,i+1,j,arr,res);
+            if(result) return result;
+            result = result|| generateSolution(a,b,i,j+1,arr,res);
+            if(result) return result;
+            result=result|| generateSolution(a,b,i-1,j,arr,res);
+            if(result) return result;
+            result = result|| generateSolution(a,b,i,j-1,arr,res);
+            if(result) return result;
+            res[i][j]  = 0;
+        }
+        return false;
+    }
+    public static void main(String args[]) {
+        Scanner sc= new Scanner(System.in);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        char arr[][] = new char[a][b];
+        for(int i=0; i<a; i++){
+            String temp = sc.next();
+            for(int j=0; j<b; j++){
+                arr[i][j]  = temp.charAt(j);
+            }
+        }
+        int res[][] = new int[a][b];
+        boolean temp  = generateSolution(a,b,0,0,arr,res);
+        if(temp){
+        for(int i=0; i<a; i++){
+            for(int j=0; j<b; j++){
+                System.out.print(res[i][j]+" ");
+            }
+            System.out.println();
+        }}
+        else{
+            System.out.println("NO PATH FOUND");
+        }
+    }
+}
