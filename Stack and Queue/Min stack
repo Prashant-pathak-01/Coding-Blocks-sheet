@@ -1,52 +1,76 @@
-import java.util.*;
-class Stack{
-	private int arr[];
-	private int i;
-	Stack(int n){
-		arr = new int[n];
-		i = -1;
-	}
-	void push(int d){
-		i++;
-		arr[i] = d;
-	}
-	void pop(){
-		i--;
-	}
-	int top(){
-		return arr[i];
-	}
-	int getMin(){
-		int min = Integer.MAX_VALUE;
-		for(int x=0; x<=i; x++){
-			min = Math.min(min,arr[x]);
-		}
-		return min;
-	}
+import java.util.Scanner;
+import java.util.Stack;
 
+class Pair {
+    int a;
+    int b;
+
+    Pair(int d1, int d2) {
+        a = d1;
+        b = d2;
+    }
 }
+
+class CustomStack {
+    Stack<Pair> stack;
+    int min;
+
+    public CustomStack() {
+        stack = new Stack<>();
+        min = Integer.MAX_VALUE;
+    }
+
+    public void push(int val) {
+        if (val <= min) {
+            stack.push(new Pair(val, val));
+            min = val;
+        } else {
+            stack.push(new Pair(val, min));
+        }
+    }
+
+    public void pop() {
+        if (!stack.isEmpty()) {
+            stack.pop();
+            if (stack.isEmpty()) {
+                min = Integer.MAX_VALUE; // Reset min if stack becomes empty
+            } else {
+                min = stack.peek().b;
+            }
+        }
+    }
+
+    public int top() {
+        return stack.peek().a;
+    }
+
+    public int getMin() {
+        return min;
+    }
+}
+
 public class Main {
-    public static void main (String args[]) {
-		Scanner sc = new Scanner(System.in);
-		int n = sc.nextInt();
-		Stack st = new Stack(n);
-		String arr[] = new String[n];
-		int m = 0;
-		for(int i=0; i<n; i++){
-			arr[i] = sc.next();
-			if(arr[i].equals("push")) m++;
-		}
-		int data[] = new int[m];
-		int x = 0;
-		for(int i=0; i<m; i++) data[i] = sc.nextInt();
-		for(int i=0; i<n; i++){
-			if(arr[i].equals("push")){
-				st.push(data[x++]);
-			}else if(arr[i].equals("pop")){
-				st.pop();
-			}else if(arr[i].equals("getMin")){
-				System.out.print(st.getMin()+" ");
-			}else System.out.print(st.top()+" ");
-		}
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        CustomStack st = new CustomStack();
+        String arr[] = new String[n];
+        int m = 0;
+        for (int i = 0; i < n; i++) {
+            arr[i] = sc.next();
+            if (arr[i].equals("push")) m++;
+        }
+        int data[] = new int[m];
+        int x = 0;
+        for (int i = 0; i < m; i++) data[i] = sc.nextInt();
+        for (int i = 0; i < n; i++) {
+            if (arr[i].equals("push")) {
+                st.push(data[x++]);
+            } else if (arr[i].equals("pop")) {
+                st.pop();
+            } else if (arr[i].equals("getMin")) {
+                System.out.print(st.getMin() + " ");
+            } else System.out.print(st.top() + " ");
+        }
     }
 }
