@@ -1,0 +1,101 @@
+import java.util.*;
+
+public class Main {
+
+    static Scanner scn = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        Main m = new Main();
+        int[] pre = takeInput();
+        int[] in = takeInput();
+        BinaryTree bt = m.new BinaryTree(pre, in);
+        bt.display();
+    }
+
+    public static int[] takeInput() {
+        int n = scn.nextInt();
+        int[] rv = new int[n];
+        for (int i = 0; i < rv.length; i++) {
+            rv[i] = scn.nextInt();
+        }
+        return rv;
+    }
+
+    private class BinaryTree {
+        class Node {
+            int data;
+            Node left;
+            Node right;
+
+            Node(int data) {
+                this.data = data;
+                this.left = null;
+                this.right = null;
+            }
+        }
+
+        Node root;
+        int preIndex;
+
+        public BinaryTree(int[] pre, int[] in) {
+			preIndex =  in.length-1;
+            this.root = this.construct(pre, in, 0, in.length - 1);
+        }
+
+        private Node construct(int[] pre, int[] in, int l, int r) {
+            if (l > r) return null;
+            if (preIndex <0) return null;
+
+            Node node = new Node(pre[preIndex--]);
+
+            if (l == r) return node;
+
+            int index = findIndex(node.data, in, l, r);
+
+            node.right = construct(pre, in, index + 1, r);
+            node.left = construct(pre, in, l, index - 1);
+
+            return node;
+        }
+
+        private int findIndex(int value, int[] in, int l, int r) {
+            for (int i = l; i <= r; i++) {
+                if (in[i] == value) {
+                    return i;
+                }
+            }
+            return -1; // Value not found
+        }
+
+        public void display() {
+            this.display(this.root);
+        }
+
+        private void display(Node node) {
+            if (node == null) {
+                return;
+            }
+
+            String str = "";
+
+            if (node.left != null) {
+                str += node.left.data;
+            } else {
+                str += "END";
+            }
+
+            str += " => " + node.data + " <= ";
+
+            if (node.right != null) {
+                str += node.right.data;
+            } else {
+                str += "END";
+            }
+
+            System.out.println(str);
+
+            this.display(node.left);
+            this.display(node.right);
+        }
+    }
+}

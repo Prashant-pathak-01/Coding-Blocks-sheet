@@ -42,19 +42,6 @@ class Solution {
     }
 
 }
-
-/*
-*
-*
-*   You do not need to refer or modify any code below this. 
-*   Only modify the above class definition.
-*	Any modications to code below could lead to a 'Wrong Answer' verdict despite above code being correct.
-*	You do not even need to read or know about the code below.
-*
-*
-*
-*/
-
 public class Main {
 
     static Scanner sc = new Scanner(System.in);

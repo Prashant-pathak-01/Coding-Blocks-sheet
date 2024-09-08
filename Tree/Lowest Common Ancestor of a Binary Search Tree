@@ -1,0 +1,49 @@
+import java.util.*;
+public class Main {
+    static class Node{
+		int data;
+		Node left;
+		Node right;
+		Node(int d){
+			data = d;
+		}
+	}
+	static Scanner sc = new Scanner(System.in);
+	public static Node createTree(){
+		int n = sc.nextInt();
+		Node root = null;
+		if(n>1) root = new Node(sc.nextInt());
+		for(int i=1; i<n; i++){
+			add(root,sc.nextInt());
+		}
+		return root;
+	}
+	public static Node add(Node root, int d){
+		if(root==null) return new Node(d);
+		if(root.data>d) root.left= add(root.left,d);
+		if(root.data<d) root.right = add(root.right,d);
+		return root;
+	}
+	public static void print(Node root){
+		if(root==null) return;
+		System.out.println(root.data);
+		print(root.left);
+		print(root.right);
+	}
+	public static Node solve(Node root, int l, int r){
+		if(root==null) return null;
+		if(root.data==l || root.data==r) return root;
+		Node left = solve(root.left,l,r);
+		Node right = solve(root.right,l,r);
+		if(left==null) return right;
+		if(right==null) return left;
+		return root;
+	 }
+	public static void main (String args[]) {
+		Node root = createTree();
+		//print(root);
+		int l = sc.nextInt();
+		int r = sc.nextInt();
+		System.out.println(solve(root,l,r).data);
+    }
+}

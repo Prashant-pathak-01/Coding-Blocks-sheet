@@ -8,10 +8,8 @@ public class Main {
             arr[i] = sc.nextInt();
         }
         Stack<Integer> st = new Stack<>();
-        
         int i=0;
         while(i<n){
-
             if(st.isEmpty()||arr[i]>0||st.peek()<0){
                 st.push(arr[i]);
                 i++;

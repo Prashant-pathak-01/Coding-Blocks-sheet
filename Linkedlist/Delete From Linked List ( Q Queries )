@@ -17,7 +17,6 @@ public class Main {
 			n1 = n1.next;
 		}
 		return head.next;
-
 	}
 	public static int[] createQueries(int n){
 		int arr[] = new int[n];

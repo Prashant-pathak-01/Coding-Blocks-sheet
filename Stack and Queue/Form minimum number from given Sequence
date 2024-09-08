@@ -14,7 +14,7 @@ public class Main {
 					int temp = i+1;
 					while(temp<str.length() && str.charAt(temp)=='D') {
 						temp++;
-						count++;	
+						count++;
 					}
 					res.append(count);
 					min = count-1;

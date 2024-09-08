@@ -1,0 +1,92 @@
+import java.util.*;
+
+public class Main {
+
+    static class Node {
+        int data;
+        Node left;
+        Node right;
+
+        Node(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
+    }
+
+    static class info {
+        boolean isBST;
+        int size;
+        int min;
+        int max;
+
+        info(boolean isBST, int size, int min, int max) {
+            this.isBST = isBST;
+            this.size = size;
+            this.min = min;
+            this.max = max;
+        }
+    }
+
+    static int preIndex = 0;
+    static int[] preorder;
+    static int[] inorder;
+
+    public static Node buildTree(int inStart, int inEnd) {
+        if (inStart > inEnd) return null;
+
+        int rootValue = preorder[preIndex++];
+        Node root = new Node(rootValue);
+
+        if (inStart == inEnd) return root;
+
+        int inIndex = findIndex(rootValue, inStart, inEnd);
+        root.left = buildTree(inStart, inIndex - 1);
+        root.right = buildTree(inIndex + 1, inEnd);
+
+        return root;
+    }
+
+    public static int findIndex(int value, int inStart, int inEnd) {
+        for (int i = inStart; i <= inEnd; i++) {
+            if (inorder[i] == value) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public static info findLargestBST(Node root) {
+        if (root == null) {
+            return new info(true, 0, Integer.MAX_VALUE, Integer.MIN_VALUE);
+        }
+
+        info left = findLargestBST(root.left);
+        info right = findLargestBST(root.right);
+
+        if (left.isBST && right.isBST && root.data > left.max && root.data < right.min) {
+            int size = left.size + right.size + 1;
+            int min = Math.min(root.data, left.min);
+            int max = Math.max(root.data, right.max);
+            return new info(true, size, min, max);
+        } else {
+            return new info(false, Math.max(left.size, right.size), 0, 0);
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        preorder = new int[n];
+        inorder = new int[n];
+        for (int i = 0; i < n; i++) {
+            preorder[i] = sc.nextInt();
+        }
+        for (int i = 0; i < n; i++) {
+            inorder[i] = sc.nextInt();
+        }
+        Node root = buildTree(0, n - 1);
+        info bstInfo = findLargestBST(root);
+        System.out.println(bstInfo.size);
+    }
+}
