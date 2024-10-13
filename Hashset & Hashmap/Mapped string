@@ -1,0 +1,20 @@
+import java.util.*;
+public class Main {
+    public static void generate(String str, int i, String res){
+        if(i>=str.length()){
+            System.out.println(res);
+            return;
+        }
+        char charA = (char)((str.charAt(i)-'0')+'A'-1);
+        generate(str,i+1,res+charA);
+        if(i<str.length()-1 && Integer.parseInt(str.substring(i,i+2))<=26){
+            char charB = (char)(Integer.parseInt(str.substring(i,i+2))+'A'-1);
+            generate(str,i+2,res+charB);
+        }
+    }
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        generate(String.valueOf(n),0,"");
+    }
+}

@@ -30,21 +30,18 @@ public class Main {
 			child.data = cdata;
 			this.size++;
 
-			// left
 			boolean hlc = scn.nextBoolean();
 
 			if (hlc) {
 				child.left = this.takeInput(child, true);
 			}
 
-			// right
 			boolean hrc = scn.nextBoolean();
 
 			if (hrc) {
 				child.right = this.takeInput(child, false);
 			}
 
-			// return
 			return child;
 		}
 

@@ -1,0 +1,47 @@
+import java.util.*;
+
+public class Main {
+
+    static class Node {
+        int data;
+        Node left;
+        Node right;
+
+        Node(int data) {
+            this.data = data;
+			left = null;
+			right = null;
+        }
+    }
+	static Scanner sc;
+	public static Node createTree(){
+		int n = sc.nextInt();
+		Node root = new Node(n);
+		boolean a = sc.nextBoolean();
+		if(a) root.left = createTree();
+		boolean b = sc.nextBoolean();
+		if(b) root.right = createTree();
+		return root;
+	}
+	public static void solve(Node root,int k, List<Integer> list){
+		if(root==null) return;
+		if(root.left==null && root.right==null && k-root.data==0){
+			for(int i=0; i<list.size(); i++){
+				System.out.print(list.get(i)+" ");
+			}
+			System.out.println(root.data);
+			return;
+		}
+		list.add(root.data);
+		solve(root.left,k-root.data,list);
+		solve(root.right,k-root.data,list);
+		list.remove(list.size()-1);
+		return;
+	}
+    public static void main(String[] args) {
+		sc = new Scanner(System.in);
+        Node root = createTree();
+        int k = sc.nextInt();
+        solve(root,k, new ArrayList<>());
+    }
+}

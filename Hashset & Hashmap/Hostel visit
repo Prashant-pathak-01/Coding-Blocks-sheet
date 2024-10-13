@@ -1,0 +1,24 @@
+import java.util.*;
+public class Main {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        PriorityQueue<Long> pq = new PriorityQueue<>(Collections.reverseOrder());
+        int n = sc.nextInt();
+        int k = sc.nextInt();
+        while(n-->0){
+            int type = sc.nextInt();
+            if(type==1){
+                int a = sc.nextInt();
+                int b = sc.nextInt();
+                long dis = (long)a*a+(long)b*b;
+                if(pq.size()<k) pq.add(dis);
+                else if(pq.peek()>dis){
+                    pq.poll();
+                    pq.add(dis);
+                }
+            }else{
+                System.out.println(pq.peek());
+            }
+        }
+    }
+}

@@ -1,0 +1,25 @@
+import java.util.*;
+public class Main {
+    public static void main (String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int k = sc.nextInt();
+        Map<Integer,Integer> map = new HashMap<>();
+        for(int i=0; i<n; i++) {
+            int temp = sc.nextInt();
+            map.put(temp,map.getOrDefault(temp,0)+1);
+        }
+        PriorityQueue<int []> pq = new PriorityQueue<>((a,b)->b[0]-a[0]);
+        for(int key:map.keySet()){
+            pq.add(new int[]{map.get(key),key});
+        }
+        List<Integer> list = new ArrayList<>();
+        while(k-->0){
+            int temp[] = pq.poll();
+            list.add(temp[1]);
+        }
+        Collections.sort(list);
+        for(int i:list) System.out.print(i+" ");
+
+    }
+}

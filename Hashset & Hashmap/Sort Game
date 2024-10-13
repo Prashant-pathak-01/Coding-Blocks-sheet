@@ -1,0 +1,25 @@
+import java.util.*;
+public class Main {
+    static class Pair{
+        String str;
+        int point;
+        Pair(String str, int point){
+            this.str = str;
+            this.point  = point;
+        }
+    }
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int min = sc.nextInt();
+        int n = sc.nextInt();
+        PriorityQueue<Pair> pq = new PriorityQueue<>((a,b)->a.point==b.point?a.str.compareTo(b.str):b.point-a.point);
+        for(int i=0; i<n; i++){
+            pq.add(new Pair(sc.next(),sc.nextInt()));
+        }
+        while(!pq.isEmpty() ){
+            Pair  temp = pq.poll();
+            if(temp.point<min) break;
+            System.out.println(temp.str+" "+temp.point);
+        }
+    }
+}

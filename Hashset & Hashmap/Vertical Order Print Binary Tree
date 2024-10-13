@@ -1,0 +1,84 @@
+import java.util.*;
+public class Main {
+    static Scanner sc;
+    static class Node{
+        Node left;
+        Node right;
+        int data;
+        Node(int d){
+            data = d;
+        }
+    }
+    static class Pair{
+        Node node;
+        int pos;
+        Pair(Node a,int b){
+            node = a;
+            pos = b;
+        }
+    }
+    public static Node generateTree(){
+        int n = sc.nextInt();
+        if(n==0) return null;
+        Queue<Node> q = new LinkedList<>();
+        int temp = sc.nextInt();
+        if(temp==-1) return null;
+        Node root = new Node(temp);
+        q.add(root);
+        while(!q.isEmpty()){
+            int size = q.size();
+            while(size-->0){
+                Node x = q.poll();
+                int a  = sc.nextInt();
+                int b = sc.nextInt();
+                if(a!=-1){
+                    x.left = new Node(a);
+                    q.add(x.left);
+                }
+                if(b!=-1){
+                    x.right = new Node(b);
+                    q.add(x.right);
+                }
+            }
+        }
+        return root;
+    }
+    public static void solve(Node root){
+        if(root==null) return;
+        Map<Integer,List<Integer>> map = new HashMap<>();
+        int temp =0;
+        Queue<Pair> q = new LinkedList<>();
+        q.add(new Pair(root,0));
+        int min = Integer.MAX_VALUE;
+        int max  = Integer.MIN_VALUE;
+        while(!q.isEmpty()){
+            Pair x = q.poll();
+            List<Integer> list = map.getOrDefault(x.pos,new ArrayList<>());
+            list.add(x.node.data);
+            map.put(x.pos,list);
+            min = Math.min(min,x.pos);
+            max = Math.max(max,x.pos);
+            if(x.node.left!=null) q.add(new Pair(x.node.left,x.pos-1));
+            if(x.node.right!=null) q.add(new Pair(x.node.right,x.pos+1));
+        }
+
+
+        for(int i=min ; i<=max; i++){
+            List<Integer> list = map.get(i);
+            for(int x:list) System.out.print(x+" ");
+        }
+    }
+    public static void print(Node root){
+        if(root==null) return;
+        print(root.left);
+        print(root.right);
+        System.out.println(root.data);
+
+    }
+    public static void main(String args[]) {
+        sc = new Scanner(System.in);
+        Node root = generateTree();
+        //print(root);
+        solve(root);
+    }
+}
